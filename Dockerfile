@@ -3,7 +3,7 @@ FROM php:7.0-fpm
 LABEL maintainer="sunqida@foxmail.com"
 
 RUN apt-get update && apt-get install -y \
-        apache2 curl unzip libapache2-mod-php locales \        
+        apache2 curl unzip locales \        
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libmcrypt-dev \
