@@ -2,7 +2,7 @@ FROM ubuntu
 
 LABEL maintainer="sunqida@foxmail.com"
 
-RUN apt-get update && apt-get install -y apache2 mariadb-server php \
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y apache2 mariadb-server php \
         php-curl php-gd php-ldap php-mbstring php-mysql php-xml php-zip php-cli php-json \
         curl unzip libapache2-mod-php locales \    
         libmcrypt-dev \        
