@@ -4,10 +4,8 @@ LABEL maintainer="sunqida@foxmail.com"
 
 RUN apt-get update && apt-get install -y apache2 mariadb-server php php-curl php-gd php-ldap php-mbstring php-mysql php-xml php-zip php-cli php-json \
         curl unzip libapache2-mod-php locales \
-        libfreetype6-dev \
-        libjpeg62-turbo-dev \
-        libmcrypt-dev \
-        libpng-dev \
+        libfreetype6-dev \ 
+        libmcrypt-dev \        
     && docker-php-ext-install -j$(nproc) iconv mcrypt \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd
