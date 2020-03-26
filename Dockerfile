@@ -1,7 +1,7 @@
 FROM alpine
 LABEL maintainer="sunqida@foxmail.com"
 
-RUN apk update && apk install -y apache2 mariadb-server php php-curl php-gd php-ldap php-mbstring php-mcrypt php-mysql php-xml php-zip php-cli php-json curl unzip libapache2-mod-php locales
+RUN apk update && apk add apache2 mariadb-server php php-curl php-gd php-ldap php-mbstring php-mcrypt php-mysql php-xml php-zip php-cli php-json curl unzip libapache2-mod-php locales
 
 ENV LANG="en_US.UTF8"
 ENV MYSQL_ROOT_PASSWORD="123456"
