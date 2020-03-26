@@ -2,7 +2,7 @@ FROM alpine
 LABEL maintainer="sunqida@foxmail.com"
 
 #RUN apk update && apk add apache2 mariadb-server php php-curl php-gd php-ldap php-mbstring php-mcrypt php-mysql php-xml php-zip php-cli php-json curl unzip libapache2-mod-php locales
-RUN apk update && apk add php7-apache2 mariadb php7 php7-curl php7-gd php7-ldap php7-mbstring php7-ctype php7-pecl-mcrypt php7-pdo_mysql php7-xml php7-zip php7-json curl unzip apache2-utils
+RUN apk update && apk add php7-apache2 mariadb php7 php7-curl php7-gd php7-ldap php7-mbstring php7-ctype php7-pecl-mcrypt php7-pdo_mysql php7-xml php7-zip php7-json curl unzip
 
 ENV MYSQL_ROOT_PASSWORD="123456"
 
@@ -54,8 +54,13 @@ COPY docker-entrypoint.sh /app
 RUN chmod 777 /app/docker-entrypoint.sh
 RUN random=`date +%s`; curl http://cdn.zentaopm.com/latest/zentao.zip?rand=$random -o /var/www/zentao.zip
 RUN cd /var/www/ && unzip -q zentao.zip && rm zentao.zip
-RUN a2enmod rewrite
-
+# RUN a2enmod rewrite
+RUN sed -i '/LoadModule rewrite_module/s/^#//g' /usr/local/apache2/conf/httpd.conf
+RUN { \
+  echo 'IncludeOptional conf.d/*.conf'; \
+} >> /usr/local/apache2/conf/httpd.conf \
+  && mkdir /usr/local/apache2/conf.d
+  
 RUN rm -rf /etc/apache2/sites-enabled/000-default.conf /var/lib/mysql/*
 RUN sed -i '1i ServerName 127.0.0.1' /etc/apache2/apache2.conf
 COPY config/apache.conf /etc/apache2/sites-enabled/000-default.conf
