@@ -1,5 +1,5 @@
-FROM ubuntu:16.04
-LABEL maintainer="yidong@cnezsoft.com"
+FROM alpine
+LABEL maintainer="sunqida@foxmail.com"
 
 RUN apt-get update && apt-get install -y apache2 mariadb-server php php-curl php-gd php-ldap php-mbstring php-mcrypt php-mysql php-xml php-zip php-cli php-json curl unzip libapache2-mod-php locales
 
