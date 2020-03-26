@@ -1,7 +1,21 @@
-FROM ubuntu
+FROM php:7.0-fpm
+
 LABEL maintainer="sunqida@foxmail.com"
 
-RUN apt-get update && apt-get install -y apache2 mariadb-server php php-curl php-gd php-ldap php-mbstring php-mcrypt php-mysql php-xml php-zip php-cli php-json curl unzip libapache2-mod-php locales
+RUN apt-get update && apt-get install -y \
+        apache2 curl unzip libapache2-mod-php locales \        
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
+        libmcrypt-dev \
+        libpng-dev \
+    && docker-php-ext-install -j$(nproc) iconv mcrypt curl mbstring ldap mysql xml zip json \
+    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-install -j$(nproc) gd
+
+# FROM ubuntu
+
+
+# RUN apt-get update && apt-get install -y apache2 mariadb-server php php-curl php-gd php-ldap php-mbstring php-mcrypt php-mysql php-xml php-zip php-cli php-json curl unzip libapache2-mod-php locales
 
 ENV LANG="en_US.UTF8"
 ENV MYSQL_ROOT_PASSWORD="123456"
